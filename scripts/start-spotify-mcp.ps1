@@ -49,7 +49,7 @@ if ($secretMgmtAvailable) {
   $redirectUri = Get-Secret -Name SPOTIFY_REDIRECT_URI -AsPlainText -Vault SpotifySecrets -ErrorAction SilentlyContinue
   if (-not $redirectUri) {
     $redirectUri = Read-Host "Enter SPOTIFY_REDIRECT_URI (default http://localhost:8888/callback)"
-    if (-not $redirectUri) { $redirectUri = "http://localhost:8888/callback" }
+    if (-not $redirectUri) { $redirectUri = "https://spotify-3ti5.onrender.com" }
     Set-Secret -Name SPOTIFY_REDIRECT_URI -Secret $redirectUri -Vault SpotifySecrets | Out-Null
   }
 }
@@ -64,7 +64,7 @@ if (-not $clientId -or -not $clientSecret) {
     $clientSecret = Read-PlainFromSecure $sec
   }
   $redirectUri = if ($env:SPOTIFY_REDIRECT_URI) { $env:SPOTIFY_REDIRECT_URI } else { Read-Host "Enter SPOTIFY_REDIRECT_URI (default http://localhost:8888/callback)" }
-  if (-not $redirectUri) { $redirectUri = "http://localhost:8888/callback" }
+  if (-not $redirectUri) { $redirectUri = "https://spotify-3ti5.onrender.com" }
 
   if ($PersistWithSetx) {
     Write-Host "Persisting variables with setx (stored as plain text in user env)." -ForegroundColor Yellow

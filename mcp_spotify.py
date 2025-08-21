@@ -13,11 +13,11 @@ def _build_spotify_client() -> spotipy.Spotify:
     Requires environment variables:
     - SPOTIFY_CLIENT_ID
     - SPOTIFY_CLIENT_SECRET
-    - SPOTIFY_REDIRECT_URI (defaults to http://localhost:8888/callback)
+    - SPOTIFY_REDIRECT_URI (defaults to https://spotify-3ti5.onrender.com)
     """
     client_id = os.environ.get("SPOTIFY_CLIENT_ID")
     client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
-    redirect_uri = os.environ.get("SPOTIFY_REDIRECT_URI", "http://localhost:8888/callback")
+    redirect_uri = os.environ.get("SPOTIFY_REDIRECT_URI", "https://spotify-3ti5.onrender.com")
 
     if not client_id or not client_secret:
         raise RuntimeError(
@@ -202,6 +202,7 @@ def list_devices() -> List[Dict[str, Any]]:
 
 
 if __name__ == "__main__":
-    server.run()
+    port = int(os.environ.get("PORT", 8000))  # Use Render's port or default to 8000 locally
+    server.run(host="0.0.0.0", port=port)
 
 
